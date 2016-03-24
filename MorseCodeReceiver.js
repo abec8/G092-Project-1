@@ -39,7 +39,13 @@
  */
 function decodeCameraImage(data)
 {
-    // ADD YOUR CODE HERE
+/**
+    Need to call arrays referencing individual pixels. 
+    
+    Go through each pixel ("for" loop) to determine if true (more than 50% are red) or false (more than 50% are blue)
+    As the concentration is out of 255, a majority is anything over 128.
+    
+    **/
 
-    return false;
+    return false; //Why just return false?
 }
