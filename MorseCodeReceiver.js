@@ -39,13 +39,16 @@
  */
 function decodeCameraImage(data)
 {
+
+var redAmount = 0, blueAmount = 0;
+
     //Need to call arrays referencing individual pixels. 
     //Should be something like:
     for(i=0;i<data.length-1;i+4){
         if (data[i] > data[i+2]){
-        var redAmount += 1;
+        redAmount += 1;
         } else if (data[i] < data[i+2]) {
-        var blueAmount += 1;
+        blueAmount += 1;
         }
     }
     if (redAmount > blueAmount){
