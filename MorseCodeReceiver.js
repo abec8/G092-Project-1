@@ -23,6 +23,11 @@
  *
  */
 
+var lookupTable = {
+    a: "dot" + "interSpace" + "dash",
+    b: "dash" + "interSpace" + "dot" + "interSpace" + "dot" + "interSpace" + "dot",
+    c: "dash" + "interSpace" + "dot" + "interSpace" + "dash" + "interSpace" + "dot",
+};
 
 // ADD YOUR ADDITIONAL FUNCTIONS AND GLOBAL VARIABLES HERE
 
