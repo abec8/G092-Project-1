@@ -43,22 +43,18 @@ function decodeCameraImage(data)
 var redAmount = 0, blueAmount = 0;
 
     //Need to call arrays referencing individual pixels. 
-    //Should be something like:
-    for(i=0;i<data.length-1;i+4){
+for(i=0;i<(data.length)-1;i=i+4){
         if (data[i] > data[i+2]){
         redAmount += 1;
         } else if (data[i] < data[i+2]) {
         blueAmount += 1;
         }
-    }
+}
     if (redAmount > blueAmount){
         return true;
     }
     else {
         return false;
     }
-    
-    //Go through each pixel ("for" loop) to determine if true (more than 50% are red) or false (more than 50% are blue)
-    //As the concentration is out of 255, a majority is anything over 128.
     
 }
