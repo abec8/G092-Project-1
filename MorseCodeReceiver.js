@@ -56,8 +56,8 @@ for(i=0;i<(data.length)-1;i=i+4){
     }
 }
  
- /* this is how we define characters, which must come after the "decode image" function (?)
-    this output is then parsed through the lookup table somehow to determine what the letter is
+ /* this is how we define characters, which must come after the "decode image" function as the true & false statements are concatenated
+    this output is then parsed through the lookup table by searching "lookupTable[<dot & dash arrangement>]" to determine what the letter is
     
     
     dot  = true
