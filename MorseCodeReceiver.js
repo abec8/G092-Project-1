@@ -25,19 +25,6 @@
 
 // ADD YOUR ADDITIONAL FUNCTIONS AND GLOBAL VARIABLES HERE
 
-//Will need to define "dot", "dash" & "interSpace" by the period of time between true (on/red) and false (off/blue)
-
-//I have no idea if this is right
-
-var lookupTable = {
-    a: "dot" + "interSpace" + "dash",
-    b: "dash" + "interSpace" + "dot" + "interSpace" + "dot" + "interSpace" + "dot",
-    c: "dash" + "interSpace" + "dot" + "interSpace" + "dash" + "interSpace" + "dot",
-    d: "dash" + "interSpace" + "dot" + "interSpace" + "dot" + "interSpace",
-    e: "dot"
-};
-
-
 /*
  * This function is called once per unit of time with camera image data.
  * 
@@ -67,5 +54,18 @@ for(i=0;i<(data.length)-1;i=i+4){
     else {
         return false;
     }
+ 
+ //Will need to define "dot", "dash" & "interSpace" by the period of time between true (on/red) and false (off/blue)
+
+//I have no idea if this is right
+
+var lookupTable = {
+    a: "dot" + "interSpace" + "dash",
+    b: "dash" + "interSpace" + "dot" + "interSpace" + "dot" + "interSpace" + "dot",
+    c: "dash" + "interSpace" + "dot" + "interSpace" + "dash" + "interSpace" + "dot",
+    d: "dash" + "interSpace" + "dot" + "interSpace" + "dot" + "interSpace",
+    e: "dot"
+};
+
     
 }
