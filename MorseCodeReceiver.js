@@ -25,13 +25,16 @@
 
 // ADD YOUR ADDITIONAL FUNCTIONS AND GLOBAL VARIABLES HERE
 
-//don't know what to put here. I feel like it should be a combination of 'true' and 'false', 
-//however it indicates a string is required as the output
+//Will need to define "dot", "dash" & "interSpace" by the period of time between true (on/red) and false (off/blue)
+
+//I have no idea if this is right
 
 var lookupTable = {
     a: "dot" + "interSpace" + "dash",
     b: "dash" + "interSpace" + "dot" + "interSpace" + "dot" + "interSpace" + "dot",
     c: "dash" + "interSpace" + "dot" + "interSpace" + "dash" + "interSpace" + "dot",
+    d: "dash" + "interSpace" + "dot" + "interSpace" + "dot" + "interSpace",
+    e: "dot"
 };
 
 
