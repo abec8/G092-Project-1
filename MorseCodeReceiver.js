@@ -54,18 +54,24 @@ for(i=0;i<(data.length)-1;i=i+4){
     else {
         return false;
     }
- 
- //Will need to define "dot", "dash" & "interSpace" by the period of time between true (on/red) and false (off/blue)
-
-//I have no idea if this is right
-
-var lookupTable = {
-    a: "dot" + "interSpace" + "dash",
-    b: "dash" + "interSpace" + "dot" + "interSpace" + "dot" + "interSpace" + "dot",
-    c: "dash" + "interSpace" + "dot" + "interSpace" + "dash" + "interSpace" + "dot",
-    d: "dash" + "interSpace" + "dot" + "interSpace" + "dot" + "interSpace",
-    e: "dot"
-};
-
-    
 }
+ 
+ /* this is how we define characters, which must come after the "decode image" function (?)
+    this output is then parsed through the lookup table somehow to determine what the letter is
+    
+    
+    dot  = true
+    dash  = true + true + true
+    charSpace = false
+    letterSpace = false + false + false
+    wordSpace = false + false + false + false + false + false + false
+ */
+ 
+/* var lookupTable = {
+    dot + charSpace + dash : "a",
+    dash + charSpace + dot + charSpace + dot + charSpace + dot : "b",
+    dash + charSpace + dot + charSpace + dash + charSpace + dot : "c",
+    dash" + charSpace + dot + charSpace + dot + charSpace : "d",
+    dot : "e",
+};
+*/
