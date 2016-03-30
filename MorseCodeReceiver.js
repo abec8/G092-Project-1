@@ -54,11 +54,12 @@ for(i=0;i<(data.length)-1;i=i+4){
     else {
         return false;
     }
-}
+    output = "";
+
  
  /* this is how we define characters, which must come after the "decode image" function as the true & false statements are concatenated
     this output is then parsed through the lookup table by searching "lookupTable[<dot & dash arrangement>]" to determine what the letter is
-    
+ output += decodeCameraImage(data), though different characters have to be separated
     
     dot  = true
     dash  = true + true + true
@@ -75,3 +76,4 @@ for(i=0;i<(data.length)-1;i=i+4){
     dot : "e",
 };
 */
+}
