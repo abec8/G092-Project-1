@@ -72,7 +72,7 @@ for(i=0;i<(data.length)-1;i=i+4){
     dot + charSpace + dash : "a",
     dash + charSpace + dot + charSpace + dot + charSpace + dot : "b",
     dash + charSpace + dot + charSpace + dash + charSpace + dot : "c",
-    dash" + charSpace + dot + charSpace + dot + charSpace : "d",
+    dash + charSpace + dot + charSpace + dot + charSpace : "d",
     dot : "e",
 };
 */
