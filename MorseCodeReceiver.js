@@ -53,76 +53,87 @@ for(i=0;i<(data.length)-1;i=i+4){
     }
     else {
         return false;
-    }
-    output = "";
+    };
 
  
- /* this is how we define characters, which must come after the "decode image" function as the true & false statements are concatenated
+ 
+ /* need to run through this after every image is analised, maybe it goes after the initial call?
+ if decodeCameraImage(data) == true
+ **run again
+ **keep doing this until false
+ **if there was 1 true, = "."
+ **if there were 3 true, = "-"
+ **if there is then 1 false, run again for new character
+ **if there is then 3 false, parse through lookup table & run again for new letter
+ **if there is then 7 false, = " " & run again for new word
+ }
+ 
+    this is how we define characters, which must come after the "decode image" function as the true & false statements are concatenated
     this output is then parsed through the lookup table by searching "lookupTable[<dot & dash arrangement>]" to determine what the letter is
  output += decodeCameraImage(data), though different characters have to be separated
     
-    dot  = true
-    dash  = true + true + true
-    charSpace = false
+    "."  = true
+    "-"  = true + true + true
     letterSpace = false + false + false
     wordSpace = false + false + false + false + false + false + false
  */
  
 /* var lookupTable = {
-    dot + charSpace + dash + letterSpace : "a",
-    dash + charSpace + dot + charSpace + dot + charSpace + dot + letterSpace : "b",
-    dash + charSpace + dot + charSpace + dash + charSpace + dot + letterSpace : "c",
-    dash + charSpace + dot + charSpace + dot + letterSpace : "d",
-    dot + letterSpace : "e",
-    dot + charSpace + dot + charSpace + dash + charSpace + dot + letterSpace : "f",
-    dash + charSpace + dash + charSpace + dot + letterSpace : "g",
-    dot + charSpace + dot + charSpace + dot + charSpace + dot + letterSpace : "h",
-    dot + charSpace + dot + letterSpace : "i",
-    dot + charSpace + dash + charSpace + dash + charSpace + dash + letterSpace : "j",
-    dash + charSpace + dot + charSpace + dash + letterSpace : "k",
-    dot + charSpace + dash + charSpace + dot + charSpace + dot + letterSpace : "l",
-    dash + charSpace + dash + letterSpace : "m",
-    dash + charSpace + dot + letterSpace : "n",
-    dash + charSpace + dash + charSpace + dash + letterSpace : "o",
-    dot + charSpace + dash + charSpace + dash + charSpace + dot + letterSpace : "p",
-    dash + charSpace + dash + charSpace + dot + charSpace + dash + letterSpace : "q",
-    dot + charSpace + dash + charSpace + dot + letterSpace : "r",
-    dot + charSpace + dot + charSpace + dot + letterSpace : "s",
-    dash + letterSpace : "t",
-    dot + charSpace + dot + charSpace + dash + letterSpace : "u",
-    dot + charSpace + dot + charSpace + dot + charSpace + dash + letterSpace : "v",
-    dot + charSpace + dash + charSpace + dash + letterSpace : "w",
-    dash + charSpace + dot + charSpace + dot + charSpace + dash + letterSpace : "x",
-    dash + charSpace + dot + charSpace + dash + charSpace + dash + letterSpace : "y",
-    dash + charSpace + dash + charSpace + dot + charSpace + dot + letterSpace : "z",
-    dash + charSpace + dash + charSpace + dash + charSpace + dash + charSpace + dash + letterSpace : "0",
-    dot + charSpace + dash + charSpace + dash + charSpace + dash + charSpace + dash + letterSpace : "1",
-    dot + charSpace + dot + charSpace + dash + charSpace + dash + charSpace + dash + letterSpace : "2",
-    dot + charSpace + dot + charSpace + dot + charSpace + dash + charSpace + dash + letterSpace : "3",
-    dot + charSpace + dot + charSpace + dot + charSpace + dot + charSpace + dash + letterSpace : "4",
-    dot + charSpace + dot + charSpace + dot + charSpace + dot + charSpace + dot + letterSpace : "5",
-    dash + charSpace + dot + charSpace + dot + charSpace + dot + charSpace + dot + letterSpace : "6",
-    dash + charSpace + dash + charSpace + dot + charSpace + dot + charSpace + dot + letterSpace : "7",
-    dash + charSpace + dash + charSpace + dash + charSpace + dot + charSpace + dot + letterSpace : "8",
-    dash + charSpace + dash + charSpace + dash + charSpace + dash + charSpace + dot + letterSpace : "9",
-    dash + charSpace + dot + charSpace + dash + charSpace + dash + charSpace + dot + letterSpace : "(",
-    dash + charSpace + dot + charSpace + dash + charSpace + dash + charSpace + dot + charSpace + dash + letterSpace : ")",
-    dot + charSpace + dash + charSpace + dot + charSpace + dot + charSpace + dash + charSpace + dot + letterSpace : """,
-    dash + charSpace + dot + charSpace + dot + charSpace + dot + charSpace + dash + letterSpace : "=",
-    dot + charSpace + dash + charSpace + dash + charSpace + dash + charSpace + dash + charSpace + dot + letterSpace : "'",
-    dash + charSpace + dot + charSpace + dot + charSpace + dash + charSpace + dot + letterSpace : "/",
-    dot + charSpace + dash + charSpace + dot + charSpace + dash + charSpace + dot + letterSpace : "+",
-    dash + charSpace + dash + charSpace + dash + charSpace + dot + charSpace + dot + charSpace + dot + letterSpace : ":",
-    dot + charSpace + dash + charSpace + dot + charSpace + dash + charSpace + dot + charSpace + dash + letterSpace : ".",
-    dash + charSpace + dash + charSpace + dot + charSpace + dot + charSpace + dash + charSpace + dash + letterSpace : ",",
-    dot + charSpace + dot + charSpace + dash + charSpace + dash + charSpace + dot + charSpace + dot + letterSpace : "?",
-    dash + charSpace + dot + charSpace + dot + charSpace + dot + charSpace + dot + charSpace + dash + letterSpace : "-",
-    dot + charSpace + dash + charSpace + dash + charSpace + dot + charSpace + dash + charSpace + dot + letterSpace : "@",
-    dot + charSpace + dot + charSpace + dot + charSpace + dash + charSpace + dot + charSpace + dot + charSpace + dash + letterSpace : "$",
-    dot + charSpace + dot + charSpace + dash + charSpace + dash + charSpace + dot + charSpace + dash + letterSpace : "_",
-    dash + charSpace + dot + charSpace + dash + charSpace + dot + charSpace + dash + charSpace + dash + letterSpace : "!",
-    dot + charSpace + dash + charSpace + dot + charSpace + dash + letterSpace : "<br/>",
-    dot + charSpace + dot + charSpace + dot + charSpace + dash + charSpace + dot + charSpace + dash + letterSpace : "End of Transmission",
+    "." + “-” + letterSpace : "a",
+    “-” + "." + "." + "." + letterSpace : "b",
+    “-” + "." + “-” + "." + letterSpace : "c",
+    “-” + "." + "." + letterSpace : "d",
+    "." + letterSpace : "e",
+    "." + "." + “-” + "." + letterSpace : "f",
+    “-” + “-” + "." + letterSpace : "g",
+    "." + "." + "." + "." + letterSpace : "h",
+    "." + "." + letterSpace : "i",
+    "." + “-” + “-” + “-” + letterSpace : "j",
+    “-” + "." + “-” + letterSpace : "k",
+    “.” + “-” + “.” + “.” + letterSpace : "l",
+    “-” + “-” + letterSpace : "m",
+    “-” + “.” + letterSpace : "n",
+    “-” + “-” + “-” + letterSpace : "o",
+    “.” + “-” + “-” + “.” + letterSpace : "p",
+    “-” + “-” + “.” + “-” + letterSpace : "q",
+    “.” + “-” + “.” + letterSpace : "r",
+    “.” + “.” + “.” + letterSpace : "s",
+    “-” + letterSpace : "t",
+    “.” + “.” + “-” + letterSpace : "u",
+    “.” + “.” + “.” + “-” + letterSpace : "v",
+    “.” + “-” + “-” + letterSpace : "w",
+    “-” + “.” + “.” + “-” + letterSpace : "x",
+    “-” + “.” + “-” + “-” + letterSpace : "y",
+    “-” + “-” + “.” + “.” + letterSpace : "z",
+    “-” + “-” + “-” + “-” + “-” + letterSpace : "0",
+    “.” + “-” + “-” + “-” + “-” + letterSpace : "1",
+    “.” + “.” + “-” + “-” + “-” + letterSpace : "2",
+    “.” + “.” + “.” + “-” + “-” + letterSpace : "3",
+    “.” + “.” + “.” + “.” + “-” + letterSpace : "4",
+    “.” + “.” + “.” + “.” + “.” + letterSpace : "5",
+    “-” + “.” + “.” + “.” + “.” + letterSpace : "6",
+    “-” + “-” + “.” + “.” + “.” + letterSpace : "7",
+    “-” + “-” + “-” + “.” + “.” + letterSpace : "8",
+    “-” + “-” + “-” + “-” + “.” + letterSpace : "9",
+    “-” + “.” + “-” + “-” + “.” + letterSpace : "(",
+    “-” + “.” + “-” + “-” + “.” + “-” + letterSpace : ")",
+    “.” + “-” + “.” + “.” + “-” + “.” + letterSpace : """,
+    “-” + “.” + “.” + “.” + “-” + letterSpace : "=",
+    “.” + “-” + “-” + “-” + “-” + “.” + letterSpace : "'",
+    “-” + “.” + “.” + “-” + “.” + letterSpace : "/",
+    “.” + “-” + “.” + “-” + “.” + letterSpace : "+",
+    “-” + “-” + “-” + “.” + “.” + “.” + letterSpace : ":",
+    “.” + “-” + “.” + “-” + “.” + “-” + letterSpace : ".",
+    “-” + “-” + “.” + “.” + “-” + “-” + letterSpace : ",",
+    “.” + “.” + “-” + “-” + “.” + “.” + letterSpace : "?",
+    “-” + “.” + “.” + “.” + “.” + “-” + letterSpace : "-",
+    “.” + “-” + “-” + “.” + “-” + “.” + letterSpace : "@",
+    “.” + “.” + “.” + “-” + “.” + “.” + “-” + letterSpace : "$",
+    “.” + “.” + “-” + “-” + “.” + “-” + letterSpace : "_",
+    “-” + “.” + “-” + “.” + “-” + “-” + letterSpace : "!",
+    “.” + “-” + “.” + “-” + letterSpace : "<br/>",
+    “.” + “.” + “.” + “-” + “.” + “-” + letterSpace : "End of Transmission"
+
 };
 */
 }
