@@ -38,6 +38,8 @@
 function decodeCameraImage(data)
 {
 
+
+
 var redAmount = 0, blueAmount = 0;
 
     //Need to call arrays referencing individual pixels. 
@@ -50,10 +52,15 @@ for(i=0;i<(data.length)-1;i=i+4){
 }
     if (redAmount > blueAmount){
         return true;
+        pastTwo = previousVal + true
+        previousVal = true
     }
     else {
         return false;
-    };
+        pastTwo = previousVal + false
+        previousVal = false
+    }
+    
 
  
  
