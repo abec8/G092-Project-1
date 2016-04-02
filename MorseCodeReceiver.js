@@ -52,22 +52,19 @@ for(i=0;i<(data.length)-1;i=i+4){
 }
     if (redAmount > blueAmount){
         return true;
-        pastTwo = previousVal + true
-        previousVal = true
+        //pastTwo = previousVal + true
+        //previousVal = true
     }
     else {
         return false;
-        pastTwo = previousVal + false
-        previousVal = false
+        //pastTwo = previousVal + false
+        //previousVal = false
     }
     
 
  
  
- /* need to run through this after every image is analised, maybe it goes after the initial call?
- if decodeCameraImage(data) == true
- **run again
- **keep doing this until false
+ /* need to keep track of the previous value
  **if there was 1 true, = "."
  **if there were 3 true, = "-"
  **if there is then 1 false, run again for new character
