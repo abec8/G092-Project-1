@@ -37,12 +37,9 @@
  */
 function decodeCameraImage(data)
 {
+var redAmount = 0, blueAmount = 0, previousVal;
 
-
-
-var redAmount = 0, blueAmount = 0;
-
-    //Need to call arrays referencing individual pixels. 
+//Need to call arrays referencing individual pixels. 
 for(i=0;i<(data.length)-1;i=i+4){
         if (data[i] > data[i+2]){
         redAmount += 1;
@@ -51,9 +48,16 @@ for(i=0;i<(data.length)-1;i=i+4){
         }
 }
     if (redAmount > blueAmount){
+        
+        /* if (previousVal == true){ //I assume we need a closure statement to preserve the value for previousVal beyond the local scope
+        previousValCounter += true //if there were true values before this one, it is added on
+        }
+        else{
+        previousValCounter = true //if the previous value was not true, we start a new counter
+        }
+        
+        */
         return true;
-        //pastTwo = previousVal + true
-        //previousVal = true
     }
     else {
         return false;
@@ -64,7 +68,7 @@ for(i=0;i<(data.length)-1;i=i+4){
 
  
  
- /* need to keep track of the previous value
+ /* need to keep track of the previous value, counting the "true" values until a false
  **if there was 1 true, = "."
  **if there were 3 true, = "-"
  **if there is then 1 false, run again for new character
@@ -80,63 +84,63 @@ for(i=0;i<(data.length)-1;i=i+4){
     "-"  = true + true + true
     letterSpace = false + false + false
     wordSpace = false + false + false + false + false + false + false
- */
  
-/* var lookupTable = {
-    "." + “-” + letterSpace : "a",
-    “-” + "." + "." + "." + letterSpace : "b",
-    “-” + "." + “-” + "." + letterSpace : "c",
-    “-” + "." + "." + letterSpace : "d",
-    "." + letterSpace : "e",
-    "." + "." + “-” + "." + letterSpace : "f",
-    “-” + “-” + "." + letterSpace : "g",
-    "." + "." + "." + "." + letterSpace : "h",
-    "." + "." + letterSpace : "i",
-    "." + “-” + “-” + “-” + letterSpace : "j",
-    “-” + "." + “-” + letterSpace : "k",
-    “.” + “-” + “.” + “.” + letterSpace : "l",
-    “-” + “-” + letterSpace : "m",
-    “-” + “.” + letterSpace : "n",
-    “-” + “-” + “-” + letterSpace : "o",
-    “.” + “-” + “-” + “.” + letterSpace : "p",
-    “-” + “-” + “.” + “-” + letterSpace : "q",
-    “.” + “-” + “.” + letterSpace : "r",
-    “.” + “.” + “.” + letterSpace : "s",
-    “-” + letterSpace : "t",
-    “.” + “.” + “-” + letterSpace : "u",
-    “.” + “.” + “.” + “-” + letterSpace : "v",
-    “.” + “-” + “-” + letterSpace : "w",
-    “-” + “.” + “.” + “-” + letterSpace : "x",
-    “-” + “.” + “-” + “-” + letterSpace : "y",
-    “-” + “-” + “.” + “.” + letterSpace : "z",
-    “-” + “-” + “-” + “-” + “-” + letterSpace : "0",
-    “.” + “-” + “-” + “-” + “-” + letterSpace : "1",
-    “.” + “.” + “-” + “-” + “-” + letterSpace : "2",
-    “.” + “.” + “.” + “-” + “-” + letterSpace : "3",
-    “.” + “.” + “.” + “.” + “-” + letterSpace : "4",
-    “.” + “.” + “.” + “.” + “.” + letterSpace : "5",
-    “-” + “.” + “.” + “.” + “.” + letterSpace : "6",
-    “-” + “-” + “.” + “.” + “.” + letterSpace : "7",
-    “-” + “-” + “-” + “.” + “.” + letterSpace : "8",
-    “-” + “-” + “-” + “-” + “.” + letterSpace : "9",
-    “-” + “.” + “-” + “-” + “.” + letterSpace : "(",
-    “-” + “.” + “-” + “-” + “.” + “-” + letterSpace : ")",
-    “.” + “-” + “.” + “.” + “-” + “.” + letterSpace : """,
-    “-” + “.” + “.” + “.” + “-” + letterSpace : "=",
-    “.” + “-” + “-” + “-” + “-” + “.” + letterSpace : "'",
-    “-” + “.” + “.” + “-” + “.” + letterSpace : "/",
-    “.” + “-” + “.” + “-” + “.” + letterSpace : "+",
-    “-” + “-” + “-” + “.” + “.” + “.” + letterSpace : ":",
-    “.” + “-” + “.” + “-” + “.” + “-” + letterSpace : ".",
-    “-” + “-” + “.” + “.” + “-” + “-” + letterSpace : ",",
-    “.” + “.” + “-” + “-” + “.” + “.” + letterSpace : "?",
-    “-” + “.” + “.” + “.” + “.” + “-” + letterSpace : "-",
-    “.” + “-” + “-” + “.” + “-” + “.” + letterSpace : "@",
-    “.” + “.” + “.” + “-” + “.” + “.” + “-” + letterSpace : "$",
-    “.” + “.” + “-” + “-” + “.” + “-” + letterSpace : "_",
-    “-” + “.” + “-” + “.” + “-” + “-” + letterSpace : "!",
-    “.” + “-” + “.” + “-” + letterSpace : "<br/>",
-    “.” + “.” + “.” + “-” + “.” + “-” + letterSpace : "End of Transmission"
+    var lookupTable = {
+    "." + “-” : "a",
+    “-” + "." + "." + "." : "b",
+    “-” + "." + “-” + "." : "c",
+    “-” + "." + "." : "d",
+    "." : "e",
+    "." + "." + “-” + "." : "f",
+    “-” + “-” + "." : "g",
+    "." + "." + "." + "." : "h",
+    "." + "." : "i",
+    "." + “-” + “-” + “-” : "j",
+    “-” + "." + “-” : "k",
+    “.” + “-” + “.” + “.” : "l",
+    “-” + “-” : "m",
+    “-” + “.” : "n",
+    “-” + “-” + “-” : "o",
+    “.” + “-” + “-” + “.” : "p",
+    “-” + “-” + “.” + “-” : "q",
+    “.” + “-” + “.” : "r",
+    “.” + “.” + “.” : "s",
+    “-” : "t",
+    “.” + “.” + “-” : "u",
+    “.” + “.” + “.” + “-” : "v",
+    “.” + “-” + “-” : "w",
+    “-” + “.” + “.” + “-” : "x",
+    “-” + “.” + “-” + “-” : "y",
+    “-” + “-” + “.” + “.” : "z",
+    “-” + “-” + “-” + “-” + “-” : "0",
+    “.” + “-” + “-” + “-” + “-” : "1",
+    “.” + “.” + “-” + “-” + “-” : "2",
+    “.” + “.” + “.” + “-” + “-” : "3",
+    “.” + “.” + “.” + “.” + “-” : "4",
+    “.” + “.” + “.” + “.” + “.” : "5",
+    “-” + “.” + “.” + “.” + “.” : "6",
+    “-” + “-” + “.” + “.” + “.” : "7",
+    “-” + “-” + “-” + “.” + “.” : "8",
+    “-” + “-” + “-” + “-” + “.” : "9",
+    “-” + “.” + “-” + “-” + “.” : "(",
+    “-” + “.” + “-” + “-” + “.” + “-” : ")",
+    “.” + “-” + “.” + “.” + “-” + “.” : """,
+    “-” + “.” + “.” + “.” + “-” : "=",
+    “.” + “-” + “-” + “-” + “-” + “.” : "'",
+    “-” + “.” + “.” + “-” + “.” : "/",
+    “.” + “-” + “.” + “-” + “.” : "+",
+    “-” + “-” + “-” + “.” + “.” + “.” : ":",
+    “.” + “-” + “.” + “-” + “.” + “-” : ".",
+    “-” + “-” + “.” + “.” + “-” + “-” : ",",
+    “.” + “.” + “-” + “-” + “.” + “.” : "?",
+    “-” + “.” + “.” + “.” + “.” + “-” : "-",
+    “.” + “-” + “-” + “.” + “-” + “.” : "@",
+    “.” + “.” + “.” + “-” + “.” + “.” + “-” : "$",
+    “.” + “.” + “-” + “-” + “.” + “-” : "_",
+    “-” + “.” + “-” + “.” + “-” + “-” : "!",
+    “.” + “-” + “.” + “-” : "<br/>",
+    “.” + “.” + “.” + “-” + “.” + “-” : "End of Transmission"
+
 
 };
 */
