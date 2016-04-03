@@ -59,15 +59,17 @@ for(i=0;i<(data.length)-1;i=i+4){
                
                if (falseCounter == 1 || falseCounter == 2){
                        **interchar space
-                       **
+                       **letter ID stays unchanged
                }
                elseif (falseCounter > 2 && falseCounter > 7){
                         **interletter space
-                        **need to do something
+                        **previous letter ID needs to be analysed and saved 
+                        **new letter ID is created 
                }
                else {
                         **interword space
-                        **add space to output line
+                        **previous letter IDs are concatenated + a space
+                        **new letter ID is created
                }
                
                trueCounter = 1;
