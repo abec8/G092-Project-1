@@ -24,7 +24,7 @@
  */
 
 // ADD YOUR ADDITIONAL FUNCTIONS AND GLOBAL VARIABLES HERE
-//var previousVal = "false", trueCounter = 0, falseCounter = 1,letterInMorse = "";
+//var previousVal = "false", trueCounter = 0, falseCounter = 0,letterInMorse = "";
 
 /*
  * This function is called once per unit of time with camera image data.
@@ -63,7 +63,7 @@ for(i=0;i<(data.length)-1;i=i+4){
                }
                elseif (falseCounter > 2 && falseCounter > 7){
                         **interletter space
-                        **previous letter ID needs to be analysed and saved 
+                        **previous letter ID needs to be analysed and saved
                         **new letter ID is created 
                }
                else {
