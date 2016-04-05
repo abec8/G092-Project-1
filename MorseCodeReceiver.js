@@ -29,7 +29,6 @@ var previousVal,
     falseCounter = 0,
     letterInMorse = "",
     output = "",
-    pixelTF,
     lookupTable = {
         ".-": "a", 
         "-...": "b", 
@@ -99,7 +98,8 @@ var previousVal,
  */
 function decodeCameraImage(data) {
     var redAmount = 0,
-        blueAmount = 0;
+        blueAmount = 0,
+        imageTrueFalse;
 
     //Need to call arrays referencing individual pixels. 
     for (i = 0; i < (data.length) - 1; i = i + 4) {
@@ -110,23 +110,21 @@ function decodeCameraImage(data) {
         }
     }
     if (redAmount > blueAmount) {
-        pixelTF = true;
-        return true;
+        imageTrueFalse = true;
     } else {
-        pixelTF = false;
-        return false;
+        imageTrueFalse = false;
     }
 
-    if (pixelTF == true) {
+    if (imageTrueFalse == true) {
 
         if (previousVal == undefined) {
 		previousVal = false;
         }
 
-        if (previousVal == true) { //**this means we are in the process of determining a dot or a dash
+        if (previousVal == true) { //this means we are in the process of determining a dot or a dash
         	trueCounter += 1;
-        } else { //**this means that we are starting to analyse a new character, hence need to start a new true count
-            //**now need to analyse the kind of space coming before the new character
+        } else { //this means that we are starting to analyse a new character, hence need to start a new true count
+                //now need to analyse the kind of space coming before the new character
 
             if (falseCounter == 1 || falseCounter == 2) {
                 //**interelement space
@@ -162,10 +160,10 @@ function decodeCameraImage(data) {
         }
     }
     messageField.innerHTML = output;
-   /* if (pixelTF == true) {
+    if (imageTrueFalse == true) {
 		return true;
 	}
 	else { 
 		return false;
-*/	}
+	}
 }
