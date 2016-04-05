@@ -111,8 +111,10 @@ function decodeCameraImage(data) {
     }
     if (redAmount > blueAmount) {
         pixelTF = true;
+        return true;
     } else {
         pixelTF = false;
+        return false;
     }
 
     if (pixelTF == true) {
@@ -160,10 +162,10 @@ function decodeCameraImage(data) {
         }
     }
     messageField.innerHTML = output;
-    if (pixelTF == true) {
+   /* if (pixelTF == true) {
 		return true;
 	}
 	else { 
 		return false;
-	}
+*/	}
 }
