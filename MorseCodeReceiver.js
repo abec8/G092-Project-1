@@ -49,52 +49,47 @@ for(i=0;i<(data.length)-1;i=i+4){
         }
 }
     if (redAmount > blueAmount){
-      
-       if (previousVal == true){ **this means we are in the process of determining a dot or a dash
+      return true;
+       if (previousVal == true){ //**this means we are in the process of determining a dot or a dash
                trueCounter += 1;
        }
-       else { **this means that we are starting to analyse a new character, hence need to start a new true count
-               **now need to analyse the kind of space coming before the new character
+       else { //**this means that we are starting to analyse a new character, hence need to start a new true count
+               //**now need to analyse the kind of space coming before the new character
                
                if (falseCounter == 1 || falseCounter == 2){
-                       **interelement space
-                       **nothing happens
+                       //**interelement space
+                       //**nothing happens
                }
                elseif (falseCounter > 2 && falseCounter < 7){
-                        **intercharacter space
+                        //**intercharacter space
                         output += lookupTable[letterInMorse];
                }
                else {
-                        **interword space
+                        //**interword space
                         output += " ";
                }
                
                trueCounter = 1;
        }
        previousVal = true;
-      
-        return true;
     }
     else {
-
-        if (previousVal == false){ **this means we are determining the type of space
+        return false;
+        if (previousVal == false){ //**this means we are determining the type of space
                 falseCounter += 1;
         }
-        else { **this means we are starting to analyse a new space, hence need to start a new false count
+        else { //**this means we are starting to analyse a new space, hence need to start a new false count
                 if (trueCounter == 1 || trueCounter == 2){
-                        **need to add dot to letterInMorse
+                        //**need to add dot to letterInMorse
                         letterInMorse += ".";
                 }
                 else {
-                        **need to add dash to letterInMorse
+                        //**need to add dash to letterInMorse
                         letterInMorse += "-";
                 }
                 falseCounter = 1;
         }
         previousVal = false;
-        
-        return false;
-        
     }
     
 
