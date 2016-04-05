@@ -151,12 +151,10 @@ function decodeCameraImage(data) {
         } else { //**this means we are starting to analyse a new space, hence need to start a new false count
             if (trueCounter == 1 || trueCounter == 2) {
                 //**need to add dot to letterInMorse
-                letterInMorse += "."
-				output += ".";
+                letterInMorse += ".";
             } else if (trueCounter >2) {
                 //**need to add dash to letterInMorse
-                letterInMorse += "-"
-				output += "-";
+                letterInMorse += "-";
             }
             falseCounter = 1;
             previousVal = false;
