@@ -129,20 +129,21 @@ function decodeCameraImage(data) {
             if (falseCounter == 1 || falseCounter == 2) {
                 //**interelement space
                 //**nothing happens
-            }
+			}
             else if(falseCounter > 2 && falseCounter < 7) {
                 //**intercharacter space
                 output += lookupTable[letterInMorse];
-            } else {
+				letterInMorse = ""
+            } else if (falseCounter >= 7) {
                 //**interword space
-                output += " ";
+                output += "  ";
             }
             trueCounter = 1;
             previousVal = true;
         }
     } else {
        if (previousVal == undefined) {
-			previousVal = false;
+		previousVal = false;
 		}
 
         if (previousVal == false) { //**this means we are determining the type of space
@@ -150,10 +151,12 @@ function decodeCameraImage(data) {
         } else { //**this means we are starting to analyse a new space, hence need to start a new false count
             if (trueCounter == 1 || trueCounter == 2) {
                 //**need to add dot to letterInMorse
-                letterInMorse += ".";
-            } else {
+                letterInMorse += "."
+				output += ".";
+            } else if (trueCounter >2) {
                 //**need to add dash to letterInMorse
-                letterInMorse += "-";
+                letterInMorse += "-"
+				output += "-";
             }
             falseCounter = 1;
             previousVal = false;
