@@ -24,7 +24,7 @@
  */
 
 // ADD YOUR ADDITIONAL FUNCTIONS AND GLOBAL VARIABLES HERE
-var previousVal = "false",
+var previousVal = false,
     trueCounter = 0,
     falseCounter = 0,
     letterInMorse = "",
@@ -63,6 +63,10 @@ function decodeCameraImage(data) {
 
     if (pixelTF == true) {
 
+        if (previousVal == undefined) {
+        			previousVal = false;
+        }
+
         if (previousVal == true) { //**this means we are in the process of determining a dot or a dash
             trueCounter += 1;
         } else { //**this means that we are starting to analyse a new character, hence need to start a new true count
@@ -83,6 +87,10 @@ function decodeCameraImage(data) {
             previousVal = true;
         }
     } else {
+       if (previousVal == undefined) {
+			previousVal = false;
+		}
+
         if (previousVal == false) { //**this means we are determining the type of space
             falseCounter += 1;
         } else { //**this means we are starting to analyse a new space, hence need to start a new false count
@@ -160,4 +168,5 @@ function decodeCameraImage(data) {
         "...-.-": messageFinished()
     };
     messageField.innerHTML = output;
+    console.log(output);
 }
