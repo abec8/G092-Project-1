@@ -58,11 +58,11 @@ for(i=0;i<(data.length)-1;i=i+4){
                **now need to analyse the kind of space coming before the new character
                
                if (falseCounter == 1 || falseCounter == 2){
-                       **interchar space
+                       **interelement space
                        **letter ID stays unchanged
                }
                elseif (falseCounter > 2 && falseCounter > 7){
-                        **interletter space
+                        **intercharacter space
                         **previous letter ID needs to be analysed and saved
                         **new letter ID is created 
                }
