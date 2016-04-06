@@ -171,7 +171,7 @@ function decodeCameraImage(data) {
  * document.getElementById("restartButton").onclick = function() 
  * {
  *  	document.getElementById("messageFeild").innerHTML = "";
- */ };
+ }; */ 
 
 
 }
