@@ -170,12 +170,11 @@ function decodeCameraImage(data) {
 /*	
 	document.getElementById("restartButton").onclick = restartButtonClicked;
 	function restartButtonClicked() {
-  		//output = "",
+  		output = "",
   		trueCounter = 0,
   		falseCounter = 0,
   		letterInMorse = "",
-  		document.getElementById(messageField).value = ""
-  		//messageField.innerHTML = output;
+  		document.getElementById("messageField").innerHTML = output;
  }
  */
 }
