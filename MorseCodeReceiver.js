@@ -83,7 +83,7 @@ var previousVal,
         "..--.-": "_", 
         "-.-.--": "!",
         ".-.-": " ",
-        "...-.-": messageFinished
+        "...-.-": messageFinished();
     };
 
 /*
@@ -167,14 +167,15 @@ function decodeCameraImage(data) {
 	else { 
 		return false;
 	}
-//Not sure if this will work, but if you can test it before class it might help. It only deletes the message field.	
+/*	
 	document.getElementById("restartButton").onclick = restartButtonClicked;
-	
 	function restartButtonClicked() {
-  		output = "",
+  		//output = "",
   		trueCounter = 0,
   		falseCounter = 0,
   		letterInMorse = "",
-  		messageField.innerHTML = output;
+  		document.getElementById(messageField).value = ""
+  		//messageField.innerHTML = output;
  }
+ */
 }
