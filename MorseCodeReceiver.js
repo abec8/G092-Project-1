@@ -83,7 +83,7 @@ var previousVal,
         "..--.-": "_", 
         "-.-.--": "!",
         ".-.-": " ",
-        "...-.-": messageFinished()
+        "...-.-": messageFinished
     };
 
 /*
