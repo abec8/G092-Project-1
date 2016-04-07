@@ -133,10 +133,11 @@ function decodeCameraImage(data) {
             else if(falseCounter > 2 && falseCounter < 7) {
                 //**intercharacter space
                 output += lookupTable[letterInMorse];
-				letterInMorse = ""
+			letterInMorse = "";
             } else if (falseCounter >= 7) {
                 //**interword space
-                output += "  ";
+                output += lookupTable[letterInMorse] + "  ";
+		letterInMorse = "";
             }
             trueCounter = 1;
             previousVal = true;
