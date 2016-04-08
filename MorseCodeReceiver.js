@@ -183,6 +183,6 @@ function decodeCameraImage(data) {
   		trueCounter = 0,
   		falseCounter = 0,
   		letterInMorse = "",
-  		messageField.innerHTML = output;
+  		messageField.textContent = output;
  }
 }
