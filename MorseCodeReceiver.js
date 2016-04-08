@@ -158,10 +158,8 @@ function decodeCameraImage(data)
         { 
             trueCounter += 1; // add up number of true signals to later determine dot or dash
         }
-        else
-        { //this means that we are starting to analyse a new character, hence need to start a new true count
-            //now need to analyse the kind of space coming before the new character
-
+        else // need to analyse the type of space coming before the new character
+        {  
             if (falseCounter == 1 || falseCounter == 2)
             {
                 //interelement space - character is still being constructed, so no action necessary
@@ -194,44 +192,40 @@ function decodeCameraImage(data)
             previousVal = false;
         }
 
-        if (previousVal == false)
-        { //**this means we are determining the type of space
-            falseCounter += 1;
+        if (previousVal == false) // in process of determining type of space
+        { 
+            falseCounter += 1; // add up consecutive false signals to determine type of space
         }
-        else
-        { //**this means we are starting to analyse a new space, hence need to start a new false count
+        else // analysing new space, need to start new false count
+        {
             if (trueCounter == 1 || trueCounter == 2)
             {
-                //need to add dot to characterInMorse
-                characterInMorse += ".";
+                characterInMorse += "."; // add dot to character ID
             }
             else if (trueCounter > 2)
             {
-                //**need to add dash to characterInMorse
-                characterInMorse += "-";
+                characterInMorse += "-"; // add dash to character ID
             }
-
             if (falseCounter > 3 && trueCounter == 0)
             {
-                output += lookupTable[characterInMorse];
+                output += lookupTable[characterInMorse]; // add character to output string after prolonged "false" signal (eg. end of transmission)
             }
-
             if (lookupTable[characterInMorse] === "SK")
             {
-                messageFinished();
+                messageFinished(); // run messageFinished() when end of message signal is recieved
             }
-            falseCounter = 1;
-            previousVal = false;
+            falseCounter = 1; // count false statements to track spaces
+            previousVal = false; // set value for previous value
         }
     }
-    setMsg(output);
+    setMsg(output); //run setMSG function to print output to "msgField"
 
     if (imageTrueFalse == true)
     {
-        return true;
+        return true; // denotes image was mostly red (on)
     }
     else
     {
-        return false;
+        return false; // denotes image was mostly blue (off)
     }
 }
