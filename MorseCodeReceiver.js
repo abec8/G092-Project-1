@@ -166,13 +166,13 @@ function decodeCameraImage(data)
                 //interelement space
                 //nothing happens
             }
-            else if (falseCounter > 2 && falseCounter <= 7)
+            else if (falseCounter > 2 && falseCounter <= 6)
             {
                 //intercharacter space
                 output += lookupTable[characterInMorse];
                 characterInMorse = "";
             }
-            else if (falseCounter >= 7)
+            else if (falseCounter > 6)
             {
                 //**interword space
                 if (characterInMorse == "")
