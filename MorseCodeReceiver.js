@@ -86,21 +86,24 @@ var previousVal, // keeps track of previous (true or false) image value
         "...-.-": "SK" //messageFinished signal
     };
 
-//needs function description
+/*function() resets all global variables are & clears element tagged "messageField".
+*/
 document.getElementById("restartButton").addEventListener("click", function()
 {
     output = "",
-        trueCounter = 0,
-        falseCounter = 0,
-        characterInMorse = "",
-        setMsg(output);
+    trueCounter = 0,
+    falseCounter = 0,
+    characterInMorse = "",
+    setMsg(output);
 });
 
 
-//needs function description
+/*setMsg takes msg input & prints its text to the message field of the document
+* Input : A string of characters to be printed to the message field of the document.
+* Output : No value output. String of characters is printed to element tagged "messageField".
+*/
 function setMsg(msg)
 {
-    console.log('set SMg' + msg);
     var msgRef = document.getElementById('messageField');
     msgRef.textContent = msg;
 }
@@ -115,7 +118,6 @@ function setMsg(msg)
  * Output: You should return a boolean denoting whether or not the image is
  *         an 'on' (red) signal.
  */
- //needs function description
 function decodeCameraImage(data)
 {
     var redAmount = 0, //red pixel counter reset after function call
@@ -124,9 +126,9 @@ function decodeCameraImage(data)
 
     for (i = 0; i < (data.length) - 1; i += 4)//Call arrays referencing individual pixels to analyse red, green and blue amounts 
     {
-        r = data[i]
-        g = data[i+1]
-        b = data[i+2]
+        r = data[i] // Red pixel data
+        g = data[i+1] // Green pixel data
+        b = data[i+2] // Blue pixel data
         if (r > b && r > g)
         {
             redAmount++;
@@ -138,24 +140,23 @@ function decodeCameraImage(data)
     }
     if (redAmount > blueAmount)
     {
-        imageTrueFalse = true; // returned at end of function
+        imageTrueFalse = true; // value of image to be returned at end of function
     }
     else
     {
-        imageTrueFalse = false; // returned at end of function
+        imageTrueFalse = false; // value of image to be returned at end of function
     }
 
-    if (imageTrueFalse == true)
+    if (imageTrueFalse == true) // "on" signal is recieved
     {
 
-        if (previousVal == undefined)
+        if (previousVal == undefined) // prevents errors caused by the first signal not having preceeding value
         {
             previousVal = false;
         }
-
-        if (previousVal == true)
-        { //this means we are in the process of determining a dot or a dash
-            trueCounter += 1;
+        elseif (previousVal == true) // in the process of determining a dot or a dash
+        { 
+            trueCounter += 1; // add up number of true signals to later determine dot or dash
         }
         else
         { //this means that we are starting to analyse a new character, hence need to start a new true count
@@ -189,9 +190,9 @@ function decodeCameraImage(data)
             previousVal = true;
         }
     }
-    else
+    else  // "off" signal is recieved
     {
-        if (previousVal == undefined)
+        if (previousVal == undefined) // prevents errors caused by the first signal not having preceeding value
         {
             previousVal = false;
         }
