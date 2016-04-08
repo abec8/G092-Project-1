@@ -123,15 +123,18 @@ function decodeCameraImage(data)
         imageTrueFalse;
 
     //Need to call arrays referencing individual pixels. 
-    for (i = 0; i < (data.length) - 1; i = i + 4)
+    for (i = 0; i < (data.length) - 1; i += 4)
     {
-        if (data[i] > data[i + 2])
+        r = data[i]
+        g = data[i+1]
+        b = data[i+2]
+        if (r > b && r > g)
         {
-            redAmount += 1;
+            redAmount++;
         }
-        else if (data[i] <= data[i + 2])
+        else if (r < b && g < b)
         {
-            blueAmount += 1;
+            blueAmount++;
         }
     }
     if (redAmount > blueAmount)
