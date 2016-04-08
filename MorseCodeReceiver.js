@@ -23,20 +23,6 @@
  *
  */
 
-document.getElementById("restartButton").addEventListener("click", function(){
-		output = "",
-  		trueCounter = 0,
-  		falseCounter = 0,
-  		letterInMorse = "",
-        	setMsg(output);
-});
-
-function setMsg(msg){
-	console.log('set SMg'+msg);
-    	var msgRef=document.getElementById('messageField');
-    	msgRef.textContent=msg;
-}
-
 // ADD YOUR ADDITIONAL FUNCTIONS AND GLOBAL VARIABLES HERE
 var previousVal,
     trueCounter = 0,
@@ -100,6 +86,24 @@ var previousVal,
         ".-.-": "\n",
         "...-.-": "SK" //messageFinished
     };
+
+
+document.getElementById("restartButton").addEventListener("click", function(){
+		output = "",
+  		trueCounter = 0,
+  		falseCounter = 0,
+  		letterInMorse = "",
+        setMsg(output);
+});
+
+
+
+function setMsg(msg){
+	console.log('set SMg'+msg);
+    	var msgRef=document.getElementById('messageField');
+    	msgRef.textContent=msg;
+}
+
 /*
  * This function is called once per unit of time with camera image data.
  * 
@@ -142,23 +146,21 @@ function decodeCameraImage(data) {
                 //now need to analyse the kind of space coming before the new character
 
             if (falseCounter == 1 || falseCounter == 2) {
-                //**interelement space
-                //**nothing happens
+                //interelement space
+                //nothing happens
 			}
-            else if(falseCounter > 2 && falseCounter < 7) {
-                //**intercharacter space
+            else if(falseCounter > 2 && falseCounter <= 7) {
+                //intercharacter space
                 output += lookupTable[letterInMorse];
-			letterInMorse = "";
+				letterInMorse = "";
             } else if (falseCounter >= 7) {
                 //**interword space
-               if (letterInMorse == ""){
+               if (letterInMorse == ""){ //prevent first output being "undefined"
                	output = ""
                }
                else{
         	output += lookupTable[letterInMorse] + "  ";
-		letterInMorse = "";	}
-               
-        	
+			letterInMorse = "";	}
             }
             trueCounter = 1;
             previousVal = true;
@@ -172,21 +174,26 @@ function decodeCameraImage(data) {
             falseCounter += 1;
         } else { //**this means we are starting to analyse a new space, hence need to start a new false count
             if (trueCounter == 1 || trueCounter == 2) {
-                //**need to add dot to letterInMorse
+                //need to add dot to letterInMorse
                 letterInMorse += ".";
             } else if (trueCounter >2) {
                 //**need to add dash to letterInMorse
                 letterInMorse += "-";
             }
-            if(lookupTable[letterInMorse]==="SK"){
-		messageFinished();
-		}
+            
+			if (falseCounter > 3 && trueCounter == 0){
+			output += lookupTable[letterInMorse];
+			}
 			
+			if(lookupTable[letterInMorse]==="SK"){
+				messageFinished();
+		}
             falseCounter = 1;
             previousVal = false;
         }
     }
     setMsg(output);
+	
     if (imageTrueFalse == true) {
 		return true;
 	}
