@@ -23,11 +23,11 @@
  *
  */
 // ADD YOUR ADDITIONAL FUNCTIONS AND GLOBAL VARIABLES HERE
-var previousVal,
-    trueCounter = 0,
-    falseCounter = 0,
-    letterInMorse = "",
-    output = "",
+var previousVal, // keeps track of previous (true or false) image value
+    trueCounter = 0, // counts consecutive true values
+    falseCounter = 0, // counts consecutive false values
+    characterInMorse = "", // tracks the character ID
+    output = "", //message to be printed
     lookupTable = {
         ".-": "a",
         "-...": "b",
@@ -83,21 +83,21 @@ var previousVal,
         "-.-.--": "!",
         ".-.-": " ",
         ".-.-": "\n",
-        "...-.-": "SK" //messageFinished
+        "...-.-": "SK" //messageFinished signal
     };
 
-
+//needs function description
 document.getElementById("restartButton").addEventListener("click", function()
 {
     output = "",
         trueCounter = 0,
         falseCounter = 0,
-        letterInMorse = "",
+        characterInMorse = "",
         setMsg(output);
 });
 
 
-
+//needs function description
 function setMsg(msg)
 {
     console.log('set SMg' + msg);
@@ -115,15 +115,14 @@ function setMsg(msg)
  * Output: You should return a boolean denoting whether or not the image is
  *         an 'on' (red) signal.
  */
+ //needs function description
 function decodeCameraImage(data)
 {
-    console.log('we got an image');
-    var redAmount = 0,
-        blueAmount = 0,
-        imageTrueFalse;
+    var redAmount = 0, //red pixel counter reset after function call
+        blueAmount = 0,//blue pixel counter reset after function call
+        imageTrueFalse; //saves whether image is on (red) or off (blue) to be returned at end of function
 
-    //Need to call arrays referencing individual pixels. 
-    for (i = 0; i < (data.length) - 1; i += 4)
+    for (i = 0; i < (data.length) - 1; i += 4)//Call arrays referencing individual pixels to analyse red, green and blue amounts 
     {
         r = data[i]
         g = data[i+1]
@@ -139,11 +138,11 @@ function decodeCameraImage(data)
     }
     if (redAmount > blueAmount)
     {
-        imageTrueFalse = true;
+        imageTrueFalse = true; // returned at end of function
     }
     else
     {
-        imageTrueFalse = false;
+        imageTrueFalse = false; // returned at end of function
     }
 
     if (imageTrueFalse == true)
@@ -170,20 +169,20 @@ function decodeCameraImage(data)
             else if (falseCounter > 2 && falseCounter <= 7)
             {
                 //intercharacter space
-                output += lookupTable[letterInMorse];
-                letterInMorse = "";
+                output += lookupTable[characterInMorse];
+                characterInMorse = "";
             }
             else if (falseCounter >= 7)
             {
                 //**interword space
-                if (letterInMorse == "")
+                if (characterInMorse == "")
                 { //prevent first output being "undefined"
                     output = ""
                 }
                 else
                 {
-                    output += lookupTable[letterInMorse] + "  ";
-                    letterInMorse = "";
+                    output += lookupTable[characterInMorse] + "  ";
+                    characterInMorse = "";
                 }
             }
             trueCounter = 1;
@@ -205,21 +204,21 @@ function decodeCameraImage(data)
         { //**this means we are starting to analyse a new space, hence need to start a new false count
             if (trueCounter == 1 || trueCounter == 2)
             {
-                //need to add dot to letterInMorse
-                letterInMorse += ".";
+                //need to add dot to characterInMorse
+                characterInMorse += ".";
             }
             else if (trueCounter > 2)
             {
-                //**need to add dash to letterInMorse
-                letterInMorse += "-";
+                //**need to add dash to characterInMorse
+                characterInMorse += "-";
             }
 
             if (falseCounter > 3 && trueCounter == 0)
             {
-                output += lookupTable[letterInMorse];
+                output += lookupTable[characterInMorse];
             }
 
-            if (lookupTable[letterInMorse] === "SK")
+            if (lookupTable[characterInMorse] === "SK")
             {
                 messageFinished();
             }
