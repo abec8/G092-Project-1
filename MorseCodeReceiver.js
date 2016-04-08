@@ -88,7 +88,7 @@ var previousVal, // keeps track of previous (true or false) image value
 
 /*function() resets all global variables are & clears element tagged "messageField".
 */
-document.getElementById("restartButton").addEventListener("click", function()
+document.getElementById("restartButton").addEventListener("click", function() // assign action to restart button being clicked
 {
     output = "",
     trueCounter = 0,
@@ -129,20 +129,20 @@ function decodeCameraImage(data)
         r = data[i] // Red pixel data
         g = data[i+1] // Green pixel data
         b = data[i+2] // Blue pixel data
-        if (r > b && r > g)
+        if (r > b && r > g) // majority red pixel
         {
             redAmount++;
         }
-        else if (r < b && g < b)
+        else if (r < b && g < b) // majority blue pixel
         {
             blueAmount++;
         }
     }
-    if (redAmount > blueAmount)
+    if (redAmount > blueAmount) // determine whether image was made up of more red pixels than blue
     {
         imageTrueFalse = true; // value of image to be returned at end of function
     }
-    else
+    else // determine whether image was made up of more blue pixels than red
     {
         imageTrueFalse = false; // value of image to be returned at end of function
     }
@@ -164,30 +164,27 @@ function decodeCameraImage(data)
 
             if (falseCounter == 1 || falseCounter == 2)
             {
-                //interelement space
-                //nothing happens
+                //interelement space - character is still being constructed, so no action necessary
             }
-            else if (falseCounter > 2 && falseCounter <= 6)
+            else if (falseCounter > 2 && falseCounter <= 6) //intercharacter space
             {
-                //intercharacter space
-                output += lookupTable[characterInMorse];
-                characterInMorse = "";
+                output += lookupTable[characterInMorse]; // analyse character and add to output string
+                characterInMorse = ""; // reset character ID for next character to be constructed
             }
-            else if (falseCounter > 6)
+            else if (falseCounter > 6) // interword space
             {
-                //**interword space
-                if (characterInMorse == "")
-                { //prevent first output being "undefined"
-                    output = ""
+                if (characterInMorse == "") // prevent first output being "undefined" due to delay starting signal transmission
+                { 
+                    output = "" //clear string to prevent printing of "undefined"
                 }
-                else
+                else //analyse character, add to output string, add word space
                 {
-                    output += lookupTable[characterInMorse] + "  ";
-                    characterInMorse = "";
+                    output += lookupTable[characterInMorse] + "  "; // analyse character, add to output string, add word space
+                    characterInMorse = ""; // reset character ID for next character to be constructed
                 }
             }
-            trueCounter = 1;
-            previousVal = true;
+            trueCounter = 1; // count true statements to track dots and dashes
+            previousVal = true; // set value for previous value
         }
     }
     else  // "off" signal is recieved
