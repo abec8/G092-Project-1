@@ -3,7 +3,7 @@
  *
  * Function: messageFinished(): stops the capturing process
  *
- *     You can call this function to let the app know that the 
+ *     You can call this function to let the app know that the
  *     end-of-transmission signal has been received.
  *
  * -------------------------------------------------------
@@ -12,17 +12,16 @@
  *
  *     This will be a textarea element where you can display
  *     the recieved message for the user.
- * 
+ *
  * -------------------------------------------------------
  *
  * ID: restartButton: id of the Restart button
  *
- *     This is a button element.  When clicked this should 
+ *     This is a button element.  When clicked this should
  *     cause your app to reset its state and begin recieving
  *     a new message.
  *
  */
-
 // ADD YOUR ADDITIONAL FUNCTIONS AND GLOBAL VARIABLES HERE
 var previousVal,
     trueCounter = 0,
@@ -30,30 +29,30 @@ var previousVal,
     letterInMorse = "",
     output = "",
     lookupTable = {
-        ".-": "a", 
-        "-...": "b", 
-        "-.-.": "c", 
-        "-..": "d", 
+        ".-": "a",
+        "-...": "b",
+        "-.-.": "c",
+        "-..": "d",
         ".": "e",
         "..-.": "f",
         "--.": "g",
         "....": "h",
         "..": "i",
-        ".---": "j", 
+        ".---": "j",
         "-.-": "k",
         ".-..": "l",
-        "--": "m", 
+        "--": "m",
         "-.": "n",
         "---": "o",
         ".--.": "p",
         "--.-": "q",
         ".-.": "r",
-        "...": "s", 
+        "...": "s",
         "-": "t",
         "..-": "u",
         "...-": "v",
-        ".--": "w", 
-        "-..-": "x", 
+        ".--": "w",
+        "-..-": "x",
         "-.--": "y",
         "--..": "z",
         "-----": "0",
@@ -61,26 +60,26 @@ var previousVal,
         "..---": "2",
         "...--": "3",
         "....-": "4",
-        ".....": "5", 
+        ".....": "5",
         "-....": "6",
         "--...": "7",
         "---..": "8",
-        "----.": "9", 
-        "-.--.": "(", 
+        "----.": "9",
+        "-.--.": "(",
         "-.--.-": ")",
-        ".-..-.": "\"", 
+        ".-..-.": "\"",
         "-...-": " = ",
-        ".----.": "'", 
+        ".----.": "'",
         "-..-.": "/",
         ".-.-.": "+",
         "---...": ":",
         ".-.-.-": ".",
         "--..--": ",",
-        "..--..": "?", 
+        "..--..": "?",
         "-....-": "-",
         ".--.-.": "@",
         "...-..-": "$",
-        "..--.-": "_", 
+        "..--.-": "_",
         "-.-.--": "!",
         ".-.-": " ",
         ".-.-": "\n",
@@ -88,116 +87,151 @@ var previousVal,
     };
 
 
-document.getElementById("restartButton").addEventListener("click", function(){
-		output = "",
-  		trueCounter = 0,
-  		falseCounter = 0,
-  		letterInMorse = "",
+document.getElementById("restartButton").addEventListener("click", function()
+{
+    output = "",
+        trueCounter = 0,
+        falseCounter = 0,
+        letterInMorse = "",
         setMsg(output);
 });
 
 
 
-function setMsg(msg){
-	console.log('set SMg'+msg);
-    	var msgRef=document.getElementById('messageField');
-    	msgRef.textContent=msg;
+function setMsg(msg)
+{
+    console.log('set SMg' + msg);
+    var msgRef = document.getElementById('messageField');
+    msgRef.textContent = msg;
 }
 
 /*
  * This function is called once per unit of time with camera image data.
- * 
+ *
  * Input : Image Data. An array of integers representing a sequence of pixels.
- *         Each pixel is representing by four consecutive integer values for 
+ *         Each pixel is representing by four consecutive integer values for
  *         the 'red', 'green', 'blue' and 'alpha' values.  See the assignment
  *         instructions for more details.
- * Output: You should return a boolean denoting whether or not the image is 
+ * Output: You should return a boolean denoting whether or not the image is
  *         an 'on' (red) signal.
  */
-function decodeCameraImage(data) {
-	console.log('we got an image');
+function decodeCameraImage(data)
+{
+    console.log('we got an image');
     var redAmount = 0,
         blueAmount = 0,
         imageTrueFalse;
 
     //Need to call arrays referencing individual pixels. 
-    for (i = 0; i < (data.length) - 1; i = i + 4) {
-        if (data[i] > data[i + 2]) {
+    for (i = 0; i < (data.length) - 1; i = i + 4)
+    {
+        if (data[i] > data[i + 2])
+        {
             redAmount += 1;
-        } else if (data[i] <= data[i + 2]) {
+        }
+        else if (data[i] <= data[i + 2])
+        {
             blueAmount += 1;
         }
     }
-    if (redAmount > blueAmount) {
+    if (redAmount > blueAmount)
+    {
         imageTrueFalse = true;
-    } else {
+    }
+    else
+    {
         imageTrueFalse = false;
     }
 
-    if (imageTrueFalse == true) {
+    if (imageTrueFalse == true)
+    {
 
-        if (previousVal == undefined) {
-		previousVal = false;
+        if (previousVal == undefined)
+        {
+            previousVal = false;
         }
 
-        if (previousVal == true) { //this means we are in the process of determining a dot or a dash
-        	trueCounter += 1;
-        } else { //this means that we are starting to analyse a new character, hence need to start a new true count
-                //now need to analyse the kind of space coming before the new character
+        if (previousVal == true)
+        { //this means we are in the process of determining a dot or a dash
+            trueCounter += 1;
+        }
+        else
+        { //this means that we are starting to analyse a new character, hence need to start a new true count
+            //now need to analyse the kind of space coming before the new character
 
-            if (falseCounter == 1 || falseCounter == 2) {
+            if (falseCounter == 1 || falseCounter == 2)
+            {
                 //interelement space
                 //nothing happens
-			}
-            else if(falseCounter > 2 && falseCounter <= 7) {
+            }
+            else if (falseCounter > 2 && falseCounter <= 7)
+            {
                 //intercharacter space
                 output += lookupTable[letterInMorse];
-				letterInMorse = "";
-            } else if (falseCounter >= 7) {
+                letterInMorse = "";
+            }
+            else if (falseCounter >= 7)
+            {
                 //**interword space
-               if (letterInMorse == ""){ //prevent first output being "undefined"
-               	output = ""
-               }
-               else{
-        	output += lookupTable[letterInMorse] + "  ";
-			letterInMorse = "";	}
+                if (letterInMorse == "")
+                { //prevent first output being "undefined"
+                    output = ""
+                }
+                else
+                {
+                    output += lookupTable[letterInMorse] + "  ";
+                    letterInMorse = "";
+                }
             }
             trueCounter = 1;
             previousVal = true;
         }
-    } else {
-       if (previousVal == undefined) {
-		previousVal = false;
-		}
+    }
+    else
+    {
+        if (previousVal == undefined)
+        {
+            previousVal = false;
+        }
 
-        if (previousVal == false) { //**this means we are determining the type of space
+        if (previousVal == false)
+        { //**this means we are determining the type of space
             falseCounter += 1;
-        } else { //**this means we are starting to analyse a new space, hence need to start a new false count
-            if (trueCounter == 1 || trueCounter == 2) {
+        }
+        else
+        { //**this means we are starting to analyse a new space, hence need to start a new false count
+            if (trueCounter == 1 || trueCounter == 2)
+            {
                 //need to add dot to letterInMorse
                 letterInMorse += ".";
-            } else if (trueCounter >2) {
+            }
+            else if (trueCounter > 2)
+            {
                 //**need to add dash to letterInMorse
                 letterInMorse += "-";
             }
-            
-			if (falseCounter > 3 && trueCounter == 0){
-			output += lookupTable[letterInMorse];
-			}
-			
-			if(lookupTable[letterInMorse]==="SK"){
-				messageFinished();
-		}
+
+            if (falseCounter > 3 && trueCounter == 0)
+            {
+                output += lookupTable[letterInMorse];
+            }
+
+            if (lookupTable[letterInMorse] === "SK")
+            {
+                messageFinished();
+            }
             falseCounter = 1;
             previousVal = false;
         }
     }
     setMsg(output);
-	
-    if (imageTrueFalse == true) {
-		return true;
-	}
-	else { 
-		return false;
-	}
+
+    if (imageTrueFalse == true)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
