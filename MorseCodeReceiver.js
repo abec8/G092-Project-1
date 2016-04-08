@@ -83,7 +83,7 @@ var previousVal,
         "..--.-": "_", 
         "-.-.--": "!",
         ".-.-": " ",
-        //".-.-": "br>,
+        //".-.-": document.write('<br/>'),
         "...-.-": messageFinished
     };
 
