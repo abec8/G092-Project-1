@@ -23,6 +23,17 @@
  *
  */
 
+function updateMsg(msg){
+    var msgRef=document.getElementById('messageField');
+    msgRef.textContent+=msg;
+}
+
+function setMsg(msg){
+    var msgRef=document.getElementById('messageField');
+    msgRef.textContent=msg;
+}
+
+
 // ADD YOUR ADDITIONAL FUNCTIONS AND GLOBAL VARIABLES HERE
 var previousVal,
     trueCounter = 0,
@@ -83,7 +94,7 @@ var previousVal,
         "..--.-": "_", 
         "-.-.--": "!",
         ".-.-": " ",
-        ".-.-": document.write('<br/>'),
+        //".-.-": document.write('<br/>'),
         "...-.-": messageFinished
     };
 
@@ -168,7 +179,7 @@ function decodeCameraImage(data) {
             previousVal = false;
         }
     }
-    messageField.innerHTML = output;
+    updateMsg(output);
     if (imageTrueFalse == true) {
 		return true;
 	}
@@ -183,6 +194,7 @@ function decodeCameraImage(data) {
   		trueCounter = 0,
   		falseCounter = 0,
   		letterInMorse = "",
-  		messageField.textContent = output;
+  		//messageField.innerHTML = output;
+        	setMsg(output);
  }
 }
