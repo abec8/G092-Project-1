@@ -23,12 +23,20 @@
  *
  */
 
-function updateMsg(msg){
-    var msgRef=document.getElementById('messageField');
-    msgRef.textContent+=msg;
-}
+
+	document.getElementById("restartButton").addEventListener("click", function(){
+		
+		 output = "",
+  		trueCounter = 0,
+  		falseCounter = 0,
+  		letterInMorse = "",
+        	setMsg(output);
+
+		
+});
 
 function setMsg(msg){
+	console.log('set SMg'+msg);
     var msgRef=document.getElementById('messageField');
     msgRef.textContent=msg;
 }
@@ -94,8 +102,8 @@ var previousVal,
         "..--.-": "_", 
         "-.-.--": "!",
         ".-.-": " ",
-        //".-.-": document.write('<br/>'),
-        "...-.-": messageFinished
+        ".-.-": "\n",
+        "...-.-": "SK" //messageFinished
     };
 
 /*
@@ -109,6 +117,7 @@ var previousVal,
  *         an 'on' (red) signal.
  */
 function decodeCameraImage(data) {
+	console.log('we got an image');
     var redAmount = 0,
         blueAmount = 0,
         imageTrueFalse;
@@ -153,8 +162,8 @@ function decodeCameraImage(data) {
                }
                else{
         	output += lookupTable[letterInMorse] + "  ";
-		letterInMorse = "";	
-               }
+		letterInMorse = "";	}
+               
         	
             }
             trueCounter = 1;
@@ -175,26 +184,19 @@ function decodeCameraImage(data) {
                 //**need to add dash to letterInMorse
                 letterInMorse += "-";
             }
+            if(lookupTable[letterInMorse]==="SK"){
+		messageFinished();
+		}
+			
             falseCounter = 1;
             previousVal = false;
         }
     }
-    updateMsg(output);
+    setMsg(output);
     if (imageTrueFalse == true) {
 		return true;
 	}
 	else { 
 		return false;
 	}
-//Not sure if this will work, but if you can test it before class it might help. It only deletes the message field.	
-	document.getElementById("restartButton").onclick = restartButtonClicked;
-	
-	function restartButtonClicked() {
-  		output = "",
-  		trueCounter = 0,
-  		falseCounter = 0,
-  		letterInMorse = "",
-  		//messageField.innerHTML = output;
-        	setMsg(output);
- }
 }
