@@ -23,24 +23,19 @@
  *
  */
 
-
-	document.getElementById("restartButton").addEventListener("click", function(){
-		
-		 output = "",
+document.getElementById("restartButton").addEventListener("click", function(){
+		output = "",
   		trueCounter = 0,
   		falseCounter = 0,
   		letterInMorse = "",
         	setMsg(output);
-
-		
 });
 
 function setMsg(msg){
 	console.log('set SMg'+msg);
-    var msgRef=document.getElementById('messageField');
-    msgRef.textContent=msg;
+    	var msgRef=document.getElementById('messageField');
+    	msgRef.textContent=msg;
 }
-
 
 // ADD YOUR ADDITIONAL FUNCTIONS AND GLOBAL VARIABLES HERE
 var previousVal,
@@ -105,7 +100,6 @@ var previousVal,
         ".-.-": "\n",
         "...-.-": "SK" //messageFinished
     };
-
 /*
  * This function is called once per unit of time with camera image data.
  * 
