@@ -154,7 +154,7 @@ function decodeCameraImage(data)
         {
             previousVal = false;
         }
-        elseif (previousVal == true) // in the process of determining a dot or a dash
+        if (previousVal == true) // in the process of determining a dot or a dash
         { 
             trueCounter += 1; // add up number of true signals to later determine dot or dash
         }
