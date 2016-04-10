@@ -86,7 +86,7 @@ var previousVal, // keeps track of previous (true or false) image value
         "...-.-": "SK" //messageFinished signal
     };
 
-/*function() resets all global variables are & clears element tagged "messageField".
+/*function() resets all global variables & clears element tagged "messageField".
 */
 document.getElementById("restartButton").addEventListener("click", function() // assign action to restart button being clicked
 {
@@ -100,7 +100,7 @@ document.getElementById("restartButton").addEventListener("click", function() //
 
 /*setMsg takes msg input & prints its text to the message field of the document
 * Input : A string of characters to be printed to the message field of the document.
-* Output : No value output. String of characters is printed to element tagged "messageField".
+* Output : No returned output. String of characters is printed to element tagged "messageField".
 */
 function setMsg(msg)
 {
