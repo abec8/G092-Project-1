@@ -28,7 +28,7 @@ var previousVal, // keeps track of previous (true or false) image value
     falseCounter = 0, // counts consecutive false values
     characterInMorse = "", // tracks the character ID
     output = "", //message to be printed
-    lookupTable = {
+    lookupTable = { //lookup table contains lower-case letter characters
         ".-": "a",
         "-...": "b",
         "-.-.": "c",
